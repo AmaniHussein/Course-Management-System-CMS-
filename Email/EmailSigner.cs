@@ -8,7 +8,7 @@ namespace Final8Net.Email
     {
         public Task SendEmailLoginlAsync(string email, string subject, string message, string verificationCode)
         {
-            var mail = "celevercampus@outlook.com";
+            var mail = "cleverrcampus@outlook.com";
             //var pass = "";
             //var host="";
             //if (email != null && email.Contains("@gmail.com") )
@@ -18,7 +18,7 @@ namespace Final8Net.Email
             //}else if(email != null && email.Contains("@gmail.com"))
             //{
             var host = "smtp.office365.com";
-            var pass = "altjonopkdaypchp";
+            var pass = "abjcgneqncjolnbp";
             //}
             var client = new SmtpClient(host, 587)
             {
