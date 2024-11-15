@@ -1,0 +1,31 @@
+﻿@model List<Final8Net.Models.Course>
+
+@{
+    ViewData["Title"] = "Courses Page";
+    Layout = "_LayoutIndex";
+}
+
+<link href="~/css/list.css" rel="stylesheet">
+<link href="~/css/course.css" rel="stylesheet">
+
+<div class="text-center">
+    <h1 class="display-4">Courses</h1>
+    <form asp-action="Search" method="post">
+        <input type="text" id="searchString" name="title" placeholder="Search for courses..." />
+        <button type="submit" class="custom-btn">Search</button>
+    </form>
+</div>
+
+<div class="row" id="coursesContainer">
+    @foreach (var course in Model)
+    {
+        <div class="column" data-title="@course.Title.ToLower()">
+            <a href="~/Course/@course.Url">
+                <img id="imglist" src="@course.ImageUrl" alt="@course.Title">
+                <div class="courses-text">
+                    <h4>@course.Title</h4>
+                </div>
+            </a>
+        </div>
+    }
+</div>
