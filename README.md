@@ -28,5 +28,3 @@ preferences.
 8.	Testing and Deployment:
 −	Test the application thoroughly to ensure functionality, security, and performance.
 −	Deploy the e-learning website to a hosting environment using Microsoft Azure service to implement penetration testing.
-
-These steps have built a robust e-learning website using .NET Core C# and Azure SQL Database, providing users with a comprehensive learning experience.
