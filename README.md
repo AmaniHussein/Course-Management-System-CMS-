@@ -25,6 +25,13 @@ preferences.
 −	Develop user account management features such as getting started at a course, two-factor authentication (2FA) and email verification, etc.
 7.	Administrative Functions:
 −	Create administrative panels for managing users, courses, content, and other aspects of the platform.
-8.	Testing and Deployment:
+8. Course Search Feature:
+− Develop a search functionality
+allowing users to easily find courses
+by keywords.
+− Ensure the search feature provides
+quick and relevant results to
+enhance user experience.
+9.	Testing and Deployment:
 −	Test the application thoroughly to ensure functionality, security, and performance.
 −	Deploy the e-learning website to a hosting environment using Microsoft Azure service to implement penetration testing.
