@@ -9,25 +9,23 @@ An e-learning website using Azure SQL database with .NET Core C#, created by fol
 3.	User Authentication and Authorization:
 −	Implement user authentication and authorization using ASP.NET packages.
 −	Password hashing to avoid and prevent cybercriminals from stealing information.
-−	Define user roles and permissions to manage access levels for different features of the e-learning platform (Student and administrators).
-4.	Course Management:
-−	Create functionalities to manage courses, including creation, editing, deletion, and enrollment (CRUD Operations).
-−	Design database models and controllers to handle CRUD operations for courses.
-5.	Content Management:
-−	Develop features to manage course content such as modules and tasks.
-−	Implement functionality for instructors to create and manage course materials (Administrator).
-6.	Learning Experience:
+−	Define user roles and permissions to manage access levels for different features of the e-learning platform.
+4. Cookie Management:
+− Login Cookies: Cookies are created
+once a user logs in to maintain the
+session and ensure a seamless user
+experience.
+− Website Cookies: The website itself
+uses cookies to enhance
+functionality and track user
+preferences.
+5.	Learning Experience:
 −	Design user interfaces for learners to browse and search for courses to enrol.
-−	 Implement features for students to track their progress within courses and make tasks.
-7.	Assessment and Feedback:
-−	Create mechanisms for managing tasks within courses.
-8.	Certification and Badges:
-−	Implement functionalities to issue certificates and badges upon course completion or achievement of milestones.
-9.	Account Management:
+6.	Account Management:
 −	Develop user account management features such as getting started at a course, two-factor authentication (2FA) and email verification, etc.
-10.	Administrative Functions:
+7.	Administrative Functions:
 −	Create administrative panels for managing users, courses, content, and other aspects of the platform.
-11.	Testing and Deployment:
+8.	Testing and Deployment:
 −	Test the application thoroughly to ensure functionality, security, and performance.
 −	Deploy the e-learning website to a hosting environment using Microsoft Azure service to implement penetration testing.
 
