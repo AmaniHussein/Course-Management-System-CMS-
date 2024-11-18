@@ -1,10 +1,10 @@
-An e-learning website using Azure SQL database with .NET Core C#, created by following these steps:
+An e-learning website using Azure SQL database with .NET Core C# MVC, created by following these steps:
 1.	Project Setup:
-−	Create a new ASP.NET Core Web Application project in Visual Studio.
-−	Choose the MVC template based on requirements.
+−	Created an ASP.NET Core Web Application project in Visual Studio.
+−	Chose MVC template based on requirements.
 2.	Database Configuration:
 −	Set up Azure SQL database and creating the password for the connectivity and security.
-−	Define database schema, including tables for users (Students, Administrators), courses, Modules, quizzes.
+−	Define database schema, including tables for users (Students, Administrators), courses,and unverified users.
 −	Configure the connection string in the appsettings.json file to connect application to the SQL database.
 3.	User Authentication and Authorization:
 −	Implement user authentication and authorization using ASP.NET packages.
