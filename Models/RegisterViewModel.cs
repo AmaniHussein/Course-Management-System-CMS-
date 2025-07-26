@@ -17,7 +17,6 @@ namespace Final8Net.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public required string ConfirmPassword { get; set; }
-        //public required string StatusCode { get; set; }
     }
     
 }

@@ -17,7 +17,6 @@ namespace Final8Net.Models
 
         public required string Password { get; set; }
 
-        //public string VToken { get; set; }
     }
    
 }
