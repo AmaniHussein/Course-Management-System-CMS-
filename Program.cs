@@ -3,7 +3,6 @@ using Final8Net.Data;
 using Final8Net.Email;
 using Final8Net.Interfaces;
 using Final8Net.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,7 +50,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    //app.UseHsts();
+    app.UseHsts();
 }
 
 //app.UseStatusCodePagesWithRedirects("/Errors/{0}");
@@ -66,5 +65,9 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+await CreateRoles(app.Services);
 app.Run();
+async Task CreateRoles(IServiceProvider ServiceProvider)
+{
+
+}

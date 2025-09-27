@@ -1,5 +1,6 @@
 ﻿using Final8Net.Data;
 using Final8Net.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Final8Net.Controllers

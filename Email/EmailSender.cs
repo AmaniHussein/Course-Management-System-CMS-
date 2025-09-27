@@ -1,45 +1,57 @@
-﻿using System.Net.Mail;
-using System.Net;
-using System.Security.Cryptography;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
 using Final8Net.Interfaces;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Final8Net.Email
 {
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message, string verificationCode)
-        {
-            var mail = "cleverrcampus@outlook.com";
-            //var pass = "";
-            //var host="";
-            //if (email != null && email.Contains("@gmail.com") )
-            //{
-            //var host = "smtp.gmail.com";
-            //var pass = "rcheohjqtjrgzyhl";
-            //}else if(email != null && email.Contains("@gmail.com"))
-            //{
-            var host = "smtp.office365.com";
-            var pass = "abjcgneqncjolnbp";
-            //}
-            var client = new SmtpClient(host, 587)
-            {
-                UseDefaultCredentials = false,
-                EnableSsl = true,
-                Credentials = new NetworkCredential(mail, pass)
-            };
+        private readonly IConfiguration _configuration;
 
-            subject = "CleverCampus Verification";
-            message = "Thanks for starting the new CleverCampus account creation process." +
-                " We want to make sure it's really you." +
-                " Please enter the following verification code when prompted." +
-                " If you don’t want to create an account," +
-                " you can ignore this message.\r\n\r\n";
-            message += $"\r\n\r\nYour verification code is: {verificationCode}";
-            return client.SendMailAsync(
-                new MailMessage(from: mail,
-                                to: email,
-                                subject,
-                                message));
+        // Inject IConfiguration into the constructor
+        public EmailSender(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public async Task SendEmailAsync(string email, string subject, string message, string verificationCode)
+        {
+            // Read settings from configuration instead of hard-coding them
+            var mail = _configuration["EmailSettings:Email"];
+            var pass = _configuration["EmailSettings:Password"];
+            var host = _configuration["EmailSettings:Host"];
+
+            // 1. Create the email message using MimeKit
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("CleverCampus", mail));
+            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.Subject = "CleverCampus Verification";
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = $@"
+                <p>Thanks for starting the new CleverCampus account creation process. We want to make sure it's really you.</p>
+                <p>Please enter the following verification code when prompted. If you don’t want to create an account, you can ignore this message.</p>
+                <br>
+                <p>Your verification code is: <strong>{verificationCode}</strong></p>";
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+
+            // 2. Use MailKit's SmtpClient to connect and send
+            using (var client = new SmtpClient())
+            {
+                // Connect to the server using STARTTLS
+                await client.ConnectAsync(host, 587, MailKit.Security.SecureSocketOptions.StartTls);
+
+                // Authenticate with your username and app password
+                await client.AuthenticateAsync(mail, pass);
+
+                // Send the email
+                await client.SendAsync(emailMessage);
+
+                // Disconnect
+                await client.DisconnectAsync(true);
+            }
         }
     }
 }

@@ -23,14 +23,14 @@ namespace Final8Net.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly ApplicationDbContext _db;
-        private readonly IEmailSender emailSender;
-        private readonly IEmailSign emailSigner;
+        private readonly IEmailSender _emailSender;
+        private readonly IEmailSign _emailSigner;
         private readonly IAuthenticationServices _authenticationService;
         private readonly IDataProtectionProvider _dataProtectionProvider;
         public AccountController(IEmailSender emailSender, IEmailSign emailSigner, ILogger<AccountController> logger, ApplicationDbContext db, IAuthenticationServices authenticationService, IDataProtectionProvider dataProtectionProvider)
         {
-            this.emailSender = emailSender;
-            this.emailSigner=emailSigner; 
+            _emailSender = emailSender;
+            _emailSigner=emailSigner; 
             _db = db;
             _logger = logger;
             _authenticationService = authenticationService;
@@ -40,15 +40,17 @@ namespace Final8Net.Controllers
         private bool isLoggedIn = false;
 
         [HttpPost]
-        public async Task<IActionResult> smth0(string email, string subject, string message , string verificationCode)
+        private async Task smth0(string email, string subject, string message, string verificationCode)
         {
-            await emailSender.SendEmailAsync(email, subject, message, verificationCode);
-            return RedirectToAction("Index", "Home");
-        }
-        public async Task<IActionResult> smth1(string email, string subject, string message, string verificationCode)
+            // Calls the injected IEmailSender service
+            await _emailSender.SendEmailAsync(email, subject, message, verificationCode);
+        }   
+
+    
+        private async Task smth1(string email, string subject, string message, string verificationCode)
         {
-            await emailSigner.SendEmailLoginlAsync(email, subject, message, verificationCode);
-            return RedirectToAction("Index", "Home");
+            // Calls the injected IEmailSign service
+            await _emailSigner.SendEmailLoginAsync(email, subject, message, verificationCode);
         }
         public IActionResult Login()
         {
@@ -70,12 +72,11 @@ namespace Final8Net.Controllers
                         // Create claims for the authenticated user
 
                         // Authentication successful, redirect to home page
-                        var emailSigner = new EmailSigner();
                         string verificationCode = codeGenerate();
 
                         // Store the verification code in session
                         HttpContext.Session.SetString("VerificationCode", verificationCode);
-                        await smth1(model.Email, "", "", verificationCode);
+                        await smth1(model.Email, "Your Verification Code", "Please use this code to log in.", verificationCode);
 
                         var claims = new List<Claim>
                         {
@@ -293,12 +294,11 @@ namespace Final8Net.Controllers
                 _db.unverified.Add(Unver);
                 await _db.SaveChangesAsync();
 
-                var emailSender = new EmailSender();
                 string verificationCode = codeGenerate();
 
                 // Store the verification code in session
                 HttpContext.Session.SetString("VerificationCode", verificationCode);
-                await smth0(Unver.Email, "", "", verificationCode);
+                await smth0(Unver.Email, "Account Verification", "Use this code to verify your account.", verificationCode);
 
                 // Create a cookie for the user
                 var claims = new List<Claim>

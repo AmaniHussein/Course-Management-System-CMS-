@@ -2,6 +2,6 @@
 {
     public interface IEmailSign
     {
-        Task SendEmailLoginlAsync(string email, string subject, string message, string verificationCode);
+        Task SendEmailLoginAsync(string email, string subject, string message, string verificationCode);
     }
 }

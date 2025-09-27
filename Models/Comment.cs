@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Final8Net.Models
+﻿namespace Final8Net.Models
 {
     public class Comment 
     {
